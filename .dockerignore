@@ -1,0 +1,12 @@
+**/node_modules
+**/dist
+**/.env
+**/.env.*
+.git
+.local
+entrega_2026-11-11
+documentacion
+backups
+tmp
+**/*.key
+**/*.pfx

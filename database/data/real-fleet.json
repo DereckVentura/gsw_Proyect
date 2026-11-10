@@ -1,0 +1,155 @@
+{
+  "seleccion_confirmada": "Excluir la Rogue azul. Mantener únicamente estas tres unidades en el catálogo.",
+  "vehicles": [
+    {
+      "codigo_interno": "OUTLANDER-GRIS",
+      "marca": "Mitsubishi",
+      "modelo": "Outlander",
+      "categoria": "SUV",
+      "anio": 2017,
+      "placa": "P 43 9C5",
+      "kilometraje": null,
+      "precio_dia": "40.00",
+      "ubicacion_actual_id": null,
+      "estado_operativo": "operativo",
+      "publicado": true,
+      "descripcion": "Mitsubishi Outlander gris, 2017, 4×2. Año y tracción indicados por el propietario. Kilometraje por confirmar.",
+      "ficha": {
+        "color": "Gris",
+        "version": null,
+        "traccion": "FWD",
+        "plazas": null,
+        "motor_litros": null,
+        "potencia_hp": null,
+        "transmision": null,
+        "combustible": null,
+        "anio_verificado": false,
+        "observaciones": "Versión exacta, mercado de origen, motor y capacidad de pasajeros pendientes de verificar con documentación. La ficha estadounidense es una referencia del modelo, no una certificación de esta unidad.",
+        "fotos": [
+          {
+            "url": "/media/vehicles/outlander-gris-1.jpeg",
+            "alt": "Mitsubishi Outlander gris, vista frontal"
+          },
+          {
+            "url": "/media/vehicles/outlander-gris-2.jpeg",
+            "alt": "Mitsubishi Outlander gris, vista lateral delantera"
+          }
+        ],
+        "referencias": [
+          {
+            "titulo": "Mitsubishi: 2017 Outlander, boletín TSB-16-00-012",
+            "url": "https://mitsubishitechinfo.com/data/TECH_DOCS/2016/52006741/HTML/520067416.htm",
+            "mercado": "Estados Unidos",
+            "resumen": "Las versiones estadounidenses ES, SE y SEL 2WD usan motor 4J12 2.4 L MIVEC de cuatro cilindros y CVT. La GT usa V6 3.0 L y S-AWC. La versión exacta de esta unidad no se ha confirmado."
+          },
+          {
+            "titulo": "Mitsubishi: folleto Outlander 2017",
+            "url": "https://cdn.dealereprocess.org/cdn/brochures/mitsubishi/2017-outlander.pdf",
+            "mercado": "Estados Unidos",
+            "resumen": "Referencia del fabricante para ES, SE y SEL 2.4 L: 166 hp a 6000 rpm, 162 lb-pie a 4200 rpm y siete plazas. Confirmar mercado y configuración de esta unidad antes de presentar estas cifras como características verificadas."
+          }
+        ]
+      }
+    },
+    {
+      "codigo_interno": "OUTLANDER-ROJA",
+      "marca": "Mitsubishi",
+      "modelo": "Outlander",
+      "categoria": "SUV",
+      "anio": 2017,
+      "placa": "P 37 DE9",
+      "kilometraje": null,
+      "precio_dia": "40.00",
+      "ubicacion_actual_id": null,
+      "estado_operativo": "operativo",
+      "publicado": true,
+      "descripcion": "Mitsubishi Outlander roja, 2017, 4×2. Año y tracción indicados por el propietario. Kilometraje por confirmar.",
+      "ficha": {
+        "color": "Rojo",
+        "version": null,
+        "traccion": "FWD",
+        "plazas": null,
+        "motor_litros": null,
+        "potencia_hp": null,
+        "transmision": null,
+        "combustible": null,
+        "anio_verificado": false,
+        "observaciones": "Versión exacta, mercado de origen, motor y capacidad de pasajeros pendientes de verificar con documentación. La ficha estadounidense es una referencia del modelo, no una certificación de esta unidad.",
+        "fotos": [
+          {
+            "url": "/media/vehicles/outlander-roja-1.jpeg",
+            "alt": "Mitsubishi Outlander roja, vista frontal"
+          },
+          {
+            "url": "/media/vehicles/outlander-roja-2.jpg",
+            "alt": "Mitsubishi Outlander roja, vista lateral delantera"
+          }
+        ],
+        "referencias": [
+          {
+            "titulo": "Mitsubishi: 2017 Outlander, boletín TSB-16-00-012",
+            "url": "https://mitsubishitechinfo.com/data/TECH_DOCS/2016/52006741/HTML/520067416.htm",
+            "mercado": "Estados Unidos",
+            "resumen": "Las versiones estadounidenses ES, SE y SEL 2WD usan motor 4J12 2.4 L MIVEC de cuatro cilindros y CVT. La GT usa V6 3.0 L y S-AWC. La versión exacta de esta unidad no se ha confirmado."
+          },
+          {
+            "titulo": "Mitsubishi: folleto Outlander 2017",
+            "url": "https://cdn.dealereprocess.org/cdn/brochures/mitsubishi/2017-outlander.pdf",
+            "mercado": "Estados Unidos",
+            "resumen": "Referencia del fabricante para ES, SE y SEL 2.4 L: 166 hp a 6000 rpm, 162 lb-pie a 4200 rpm y siete plazas. Confirmar mercado y configuración de esta unidad antes de presentar estas cifras como características verificadas."
+          }
+        ]
+      }
+    },
+    {
+      "codigo_interno": "ROGUE-GRIS",
+      "marca": "Nissan",
+      "modelo": "Rogue",
+      "categoria": "SUV",
+      "anio": 2016,
+      "placa": "P 15 F44",
+      "kilometraje": null,
+      "precio_dia": "35.00",
+      "ubicacion_actual_id": null,
+      "estado_operativo": "operativo",
+      "publicado": true,
+      "descripcion": "Nissan Rogue gris. Año 2016 y equipamiento ‘full’ indicados por el propietario; año y versión pendientes de verificación. Kilometraje por confirmar.",
+      "ficha": {
+        "color": "Gris",
+        "version": null,
+        "traccion": null,
+        "plazas": null,
+        "motor_litros": null,
+        "potencia_hp": null,
+        "transmision": null,
+        "combustible": null,
+        "anio_verificado": false,
+        "observaciones": "‘Full’ no identifica una versión oficial. El frente de la fotografía parece corresponder a la actualización introducida para el año modelo 2017; es una inferencia visual y no confirma el año. Conservar 2016 como dato del propietario hasta verificar VIN/documentación. Tracción y número de asientos pendientes.",
+        "fotos": [
+          {
+            "url": "/media/vehicles/rogue-gris-1.jpeg",
+            "alt": "Nissan Rogue gris, vista frontal"
+          },
+          {
+            "url": "/media/vehicles/rogue-gris-2.jpeg",
+            "alt": "Nissan Rogue gris, segunda vista frontal"
+          }
+        ],
+        "referencias": [
+          {
+            "titulo": "Nissan: ficha oficial Rogue 2016",
+            "url": "https://usa.nissannews.com/en-US/releases/us-2016-nissan-rogue-press-kit",
+            "mercado": "Estados Unidos",
+            "resumen": "Rogue 2016: motor QR25DE 2.5 L de cuatro cilindros, 170 hp, 175 lb-pie y transmisión Xtronic. Versiones S, SV y SL, con FWD o AWD. Cinco asientos estándar; tercera fila opcional en configuraciones compatibles. Confirmar aplicabilidad a esta unidad."
+          },
+          {
+            "titulo": "Nissan: comparación Rogue 2017 y 2016",
+            "url": "https://usa.nissannews.com/en-US/releases/2017-rogue-versus-2016-rogue",
+            "mercado": "Estados Unidos",
+            "resumen": "El año modelo 2017 introdujo un nuevo frente, parrilla V-motion y cambios en los faros y antiniebla. La similitud de la foto con ese frente requiere comprobar el año con documentación; no permite asignar año ni versión por sí sola."
+          }
+        ]
+      }
+    }
+  ]
+}
