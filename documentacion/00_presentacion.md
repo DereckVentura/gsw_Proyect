@@ -31,7 +31,7 @@ Una sola instancia de la API deja de responder cuando se detiene su proceso. La 
 
 El objetivo general es integrar AutoRent con una infraestructura local reproducible que demuestre HTTPS, contenedores y continuidad de la API ante la caída de una réplica.
 
-Los objetivos específicos son empaquetar la API Express/TypeScript, servir la interfaz con Apache y HTTPS, distribuir solicitudes con Nginx, comprobar tres nodos y registrar los resultados y procedimientos en el repositorio.
+Los objetivos específicos son empaquetar la API, habilitar HTTPS, distribuir solicitudes entre tres nodos y documentar los resultados de operación.
 
 ## Alcance y fuentes de la entrega
 
