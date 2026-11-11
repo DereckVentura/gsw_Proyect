@@ -1,6 +1,6 @@
 # AutoRent para Gestión de Servidores Web
 
-Proyecto de alquiler de vehículos de Rent a Car Molina. Entrega del **11 de noviembre de 2026**, con material de clase recibido hasta la clase 32. Tema y equipo de cuatro integrantes aprobados por el docente.
+Proyecto de alquiler de vehículos de Rent a Car Molina con material de clase recibido hasta la clase 32. Tema y equipo de cuatro integrantes aprobados por el docente.
 
 **Integrantes:** Dereck Enrique Ventura Benítez, Andersson Wilfredo Vargas Reyes, Luis Román Lino Merino y Edwin David Díaz Acosta.
 
