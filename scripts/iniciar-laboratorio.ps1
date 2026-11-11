@@ -5,7 +5,7 @@ if (-not (Get-Command docker -ErrorAction SilentlyContinue)) {
     if (Test-Path -LiteralPath (Join-Path $taskDockerBin 'docker.exe')) { $env:PATH = $taskDockerBin + ';' + $env:PATH }
 }
 & "$PSScriptRoot\preparar-laboratorio.ps1"
-docker compose up -d --build
+docker compose up -d --build --remove-orphans
 if ($LASTEXITCODE -ne 0) { throw 'No se pudo iniciar el laboratorio. Revisa Docker Desktop y los registros.' }
 docker compose ps
-Write-Host 'Interfaz: https://localhost:8443 | Balanceador: https://localhost:8444/health'
+Write-Host 'Interfaz: https://localhost:8443 | API: https://localhost:8443/api/vehiculos'

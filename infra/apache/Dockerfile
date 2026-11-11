@@ -4,6 +4,6 @@ COPY web/package*.json ./
 RUN npm ci
 COPY web/ ./
 RUN npm run build
-FROM httpd:2.4-alpine
+FROM httpd:2.4-alpine@sha256:698a0f59374eeb59c2c3ae6385c5f346edd2c70c2b63f7b552fb3d64dbc3cf66
 COPY infra/apache/httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY --from=frontend /web/dist/ /usr/local/apache2/htdocs/

@@ -10,3 +10,14 @@ backups
 tmp
 **/*.key
 **/*.pfx
+
+evidencias
+tools
+infra/nginx
+
+backend/scripts/*
+!backend/scripts/inicializar-gsw.mjs
+!backend/scripts/migrate.mjs
+!backend/scripts/setup-auth-secret.mjs
+
+!backend/scripts/verify-operations.mjs

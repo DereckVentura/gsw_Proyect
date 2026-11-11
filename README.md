@@ -1,58 +1,88 @@
-# AutoRent para Gestión de Servidores Web
+# AutoRent — Proyecto de Cátedra, Fase 2
 
-Proyecto de alquiler de vehículos de Rent a Car Molina con material de clase recibido hasta la clase 32. Tema y equipo de cuatro integrantes aprobados por el docente.
+Base funcional del sitio de alquiler de vehículos de **Rent a Car Molina**. Entrega: **11 de noviembre de 2026, 23:59 (El Salvador)**.
 
-**Integrantes:** Dereck Enrique Ventura Benítez, Andersson Wilfredo Vargas Reyes, Luis Román Lino Merino y Edwin David Díaz Acosta.
-
-## Entrega
-
-- [Documentación integral](entrega_2026-11-11/Documentacion_integral_AutoRent.pdf): requisitos, análisis, diseño, plan de pruebas, manuales, calidad, seguridad, capacitación y acta.
-- [Arquitectura de tres nodos](entrega_2026-11-11/Arquitectura_AutoRent.pdf).
-- [Manual corto de reserva](entrega_2026-11-11/Manual_corto_reserva.pdf).
-- [Explicación para cuatro personas](entrega_2026-11-11/Guion_cuatro_personas.pdf).
-- [Acta de verificación](documentacion/Acta_verificacion.md) y [evidencias](evidencias/).
-
-## Iniciar en Windows
-
-Se necesitan Docker Desktop con su motor iniciado y Git para Windows. En la primera ejecución hay descargas de imágenes oficiales.
-
-1. Obtener el repositorio con `git clone https://github.com/DereckVentura/gsw_Proyect.git`.
-2. Abrir la carpeta y ejecutar `INICIAR.cmd`.
-3. Para comprobar manualmente: `docker compose ps`.
-4. Abrir **https://localhost:8443**. El certificado es local y autofirmado; revisar su identidad y el procedimiento de confianza descrito en el manual de instalación.
-
-La preparación genera secretos aleatorios y un certificado solo en `.env` y `.local/`. Esos archivos no se publican. MySQL conserva los datos en un volumen. `docker compose down` detiene el laboratorio conservando ese volumen; no usar la opción de borrar volúmenes como apagado habitual.
+**Equipo:** Dereck Enrique Ventura Benítez, Andersson Wilfredo Vargas Reyes, Luis Román Lino Merino y Edwin David Díaz Acosta.
 
 ## Arquitectura
 
-Navegador → Apache HTTPS → Nginx HTTPS → nodo1, nodo2 y nodo3 con Express/TypeScript → MySQL 8.4 compartido.
+```mermaid
+flowchart LR
+  B[Navegador] -->|HTTPS localhost:8443| A[Apache 2.4]
+  A -->|HTML / CSS / JS estáticos| W[Interfaz AutoRent]
+  A -->|ProxyPass /api/| E[Express + TypeScript :3000]
+  E -->|consultas SQL| D[(MySQL 8.4)]
+```
 
-![Arquitectura](documentacion/figuras/arquitectura.svg)
+Apache termina TLS y sirve la interfaz compilada. `ProxyPass` y `ProxyPassReverse` reenvían `/api/` a `http://api:3000/api/`; también se reenvían `/media/` y `/health`. Una sola instancia Express procesa las consultas del negocio. La API y MySQL no publican puertos del host; MySQL permanece en una red interna. `TRUST_PROXY_HOPS=1` corresponde al único proxy Apache.
 
-Apache sirve la interfaz React adaptada de AutoRent. Las rutas `/api/`, `/health` y `/media/` pasan al balanceador. La web pública original usa Cloudflare D1; esta instalación académica utiliza Express y MySQL y no comparte las cuentas ni reservas de producción.
+La configuración está en [httpd.conf](infra/apache/httpd.conf) y [compose.yaml](compose.yaml). Referencia: [ProxyPass de Apache](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#proxypass).
 
-| Dirección local | Uso |
+## Relación con la Clase 19 (blog.local)
+
+Se revisó el material de Clase 19 aportado por el equipo y su [repositorio base](https://github.com/manasesortez/blog.local.api), revisión `7d1bfb049049197581dcf11c308c9a27fb87553a`. La adaptación directa de `src/index.ts` está en [clase19.routes.ts](backend/src/routes/clase19.routes.ts): conserva Express/TypeScript, el controlador GET con respuesta JSON y `/info` personalizado. Las consultas `/articulos` y `/articulos/:id` se transformaron en `/api/vehiculos` y `/api/vehiculos/:id`, con validación, filtros y persistencia MySQL del negocio. El arranque se separa en `server.ts` y la aplicación en `app.ts`.
+
+El puerto interno se unifica en 3000. Docker Compose gestiona el proceso en esta instalación, en lugar de NSSM/systemd. Apache sirve los estáticos y reenvía solo las rutas dinámicas como en la clase; se agrega HTTPS. El PDF de clase se conserva localmente como referencia académica.
+
+## Iniciar en Windows
+
+Requisitos: Docker Desktop con el motor iniciado y Git para Windows (incluye OpenSSL). Node.js 24 se utiliza dentro de las imágenes; no es necesario instalarlo en Windows para ejecutar la entrega.
+
+```powershell
+git clone https://github.com/DereckVentura/gsw_Proyect.git
+cd gsw_Proyect
+.\INICIAR.cmd
+```
+
+El iniciador genera `.env` con secretos aleatorios, crea el certificado local en `.local/certs/` y construye los servicios. MySQL se inicializa con las migraciones y la flota del proyecto si está vacío. Abrir **https://localhost:8443** después de configurar la confianza del certificado.
+
+### HTTPS sin advertencias
+
+El certificado autofirmado se genera para `localhost` y `127.0.0.1`, con vigencia de un año. En cada computadora se debe confiar explícitamente en su propio certificado público. Desde PowerShell, después de iniciar:
+
+```powershell
+Get-PfxCertificate .local/certs/localhost.crt | Format-List Subject,Thumbprint
+Import-Certificate -FilePath .local/certs/localhost.crt -CertStoreLocation Cert:\CurrentUser\Root
+```
+
+Verificar que sea el certificado generado por esta instalación. Cerrar y volver a abrir el navegador si conserva un estado anterior. Abrir `https://localhost:8443` y consultar la información del sitio: debe indicar **La conexión es segura**. En navegadores Chromium actuales el candado aparece dentro de ese panel, al abrir el icono de controles junto a la dirección. No se necesita omitir advertencias ni desactivar la validación TLS.
+
+La llave privada `.local/certs/localhost.key`, `.env` y los certificados locales están excluidos de Git. Cada equipo genera los suyos.
+
+## Demostración de la API del negocio
+
+- [Catálogo de vehículos](https://localhost:8443/api/vehiculos): devuelve vehículos, tarifas, fotografías y paginación desde MySQL.
+- [Detalle del vehículo 1](https://localhost:8443/api/vehiculos/1): consulta dinámica por identificador; devuelve 404 si no existe.
+- [Filtro por precio máximo](https://localhost:8443/api/vehiculos?precio_max=60): filtra el catálogo en el servidor.
+- [Información personalizada](https://localhost:8443/api/info).
+- [Salud de base de datos](https://localhost:8443/api/v1/health/database).
+
+La interfaz conserva sus rutas `/api/v1/vehicles`, `/api/v1/catalogs` y las funciones existentes del negocio. Los datos del laboratorio están separados del servicio de producción; el kilometraje inicial de 50000 y los puntos de entrega son ilustrativos. Usar cuentas y documentos ficticios en pruebas.
+
+## Comprobar y detener
+
+```powershell
+docker compose ps
+docker compose exec apache httpd -t
+powershell -ExecutionPolicy Bypass -File scripts/verificar-fase2.ps1
+curl.exe https://localhost:8443/api/vehiculos
+docker compose logs --tail 20 apache api
+docker compose down
+```
+
+`down` conserva el volumen de MySQL. Para reiniciar, ejecutar `INICIAR.cmd`. Para revisar una petición en ambas capas, consultar `/api/vehiculos` y buscar esa ruta en los registros de Apache y Express.
+
+Para desarrollo local con Node.js 24: en `backend`, ejecutar `npm ci`, `npm run typecheck`, `npm test`, `npm run build`; en `web`, ejecutar `npm ci`, `npm run typecheck`, `npm run build`.
+
+**Pendiente para completar la rúbrica:** adjuntar las capturas reales del navegador con la conexión segura. El procedimiento está en `evidencias/README.md`.
+
+## Contenido de la entrega
+
+| Requisito | Archivos o evidencia |
 | --- | --- |
-| https://localhost:8443 | Aplicación por Apache |
-| https://localhost:8444/health | Balanceador para diagnóstico |
-| http://localhost:19001/health | Nodo 1 |
-| http://localhost:19002/health | Nodo 2 |
-| http://localhost:19003/health | Nodo 3 |
+| Express/TypeScript y ruta del negocio | `backend/src/`, `database/`, `Dockerfile` |
+| Apache y reverse proxy directo | `infra/apache/`, `compose.yaml` |
+| HTTPS y capturas reales del navegador | [Evidencias](evidencias/README.md) |
+| Instalación y arquitectura | Este README |
 
-Los puertos se enlazan solo a la dirección local y MySQL no publica su puerto. La red de API y base está aislada. La demostración de réplicas no elimina los puntos únicos de falla de la computadora, la base o los puntos de entrada.
-
-## Salud y recuperación
-
-Ejecutar `powershell -File scripts/verificar-cluster.ps1`. Para la práctica: detener una instancia con `docker compose stop nodo2`, repetir la consulta de salud y verificar atención por el balanceador. Recuperar con `docker compose start nodo2`.
-
-La ruta `/health` consulta MySQL y devuelve la identidad del nodo. `?simular=falla` devuelve 503 si la simulación está habilitada, sin detener el proceso. Nginx aplica comprobación pasiva; Docker no reinicia un contenedor únicamente por marcarlo como no saludable.
-
-## Desarrollo
-
-En `backend`: `npm ci`, `npm run typecheck`, `npm test` y `npm run build`. En `web`: `npm ci`, `npm run typecheck` y `npm run build`. El backend requiere Node.js 24; los archivos lock fijan las dependencias.
-
-La carpeta `database/migrations` contiene el esquema. El inicializador se limita a `autorent_gsw`, aplica migraciones y carga una flota inicial si la base está vacía. El kilometraje de 50000 y las direcciones de entrega de la base académica son ilustrativos. Usar únicamente cuentas e imágenes de licencia ficticias en pruebas.
-
-## Documentación y autoría
-
-Los Markdown de `documentacion` son editables. El generador de PDF está en `tools/generar_documentacion.py`. Se adaptó la organización de Documentación de Software I y la presentación académica del ejemplo aportado; las referencias IEEE son orientación de clase y no una certificación. El código de base y la marca AutoRent fueron aportados por el equipo; las bibliotecas conservan sus licencias respectivas.
+Esta entrega utiliza una instancia de Express. Los documentos extensos, guiones, herramientas de generación, configuraciones de clúster y balanceador de fases posteriores se conservan en la carpeta de trabajo local, excluidos de esta versión del repositorio.

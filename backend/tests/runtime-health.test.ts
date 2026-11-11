@@ -4,7 +4,7 @@ import { once } from 'node:events';
 import { createApp } from '../src/app.js';
 import { HealthService } from '../src/services/health.service.js';
 
-test('el endpoint de clúster identifica el nodo y comprueba MySQL antes de declararlo saludable', async()=>{
+test('el endpoint de salud identifica el nodo y comprueba MySQL antes de declararlo saludable', async()=>{
   let calls=0;
   const service=new HealthService({checkDatabase:async()=>{calls++;}});
   const app=createApp(service);
@@ -18,7 +18,7 @@ test('el endpoint de clúster identifica el nodo y comprueba MySQL antes de decl
   }finally {await new Promise<void>((resolve,reject)=>server.close(e=>e?reject(e):resolve()));}
 });
 
-test('el endpoint de clúster devuelve 503 si la dependencia falla', async()=>{
+test('el endpoint de salud devuelve 503 si la dependencia falla', async()=>{
   const service=new HealthService({checkDatabase:async()=>{throw Error('detalle privado');}});
   const server=createApp(service).listen(0,'127.0.0.1');await once(server,'listening');
   try {

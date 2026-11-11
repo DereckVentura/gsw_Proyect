@@ -13,3 +13,19 @@ backups/
 .DS_Store
 Thumbs.db
 tmp/
+
+# Material local para otras entregas
+/documentacion/
+/entrega_2026-11-11/
+/tools/
+/infra/nginx/
+/ABRIR_ENTREGA.cmd
+/scripts/verificar-cluster.ps1
+/evidencias/*.txt
+/evidencias/*.json
+/backend/scripts/*
+!/backend/scripts/inicializar-gsw.mjs
+!/backend/scripts/migrate.mjs
+!/backend/scripts/setup-auth-secret.mjs
+
+!/backend/scripts/verify-operations.mjs

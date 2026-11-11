@@ -1,3 +1,4 @@
+import { createClase19Router } from './routes/clase19.routes.js';
 import { hostname } from 'node:os';
 import express, { type Express, type RequestHandler } from 'express';
 import helmet from 'helmet';
@@ -35,6 +36,11 @@ export function createApp(service: HealthService, authService?: AuthService, veh
     response.json({estado:'saludable',nodo,timestamp:new Date().toISOString(),database:'connected'});
   });
   app.use(helmet());
+  app.use((request, response, next) => {
+    response.on('finish', () => console.info(JSON.stringify({ method: request.method, path: request.originalUrl, status: response.statusCode })));
+    next();
+  });
+  if (vehicleService) app.use('/api', createClase19Router(vehicleService));
   app.set('trust proxy', options.deployment?.proxyHops ?? 0);
   app.use((request, response, next) => {
     const origin = request.headers.origin;
